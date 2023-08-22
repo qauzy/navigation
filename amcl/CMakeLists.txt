@@ -3,7 +3,6 @@ project(amcl)
 
 include(CheckIncludeFile)
 include(CheckSymbolExists)
-
 find_package(catkin REQUIRED
   COMPONENTS
     diagnostic_updater

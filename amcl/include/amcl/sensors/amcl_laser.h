@@ -137,6 +137,7 @@ class AMCLLaser : public AMCLSensor
   // Laser model params
   //
   // Mixture params for the components of the model; must sum to 1
+  // 这里使用了高斯分布来建模，z_hit 参数影响了高斯分布的峰值和形状。较大的z_hit 值会使高斯分布更加尖锐，对于匹配较好的激光测量，权重增加。较小的z_hit 值会导致高斯分布更加平坦，对于距离不太匹配的激光测量，权重减少。
   private: double z_hit;
   private: double z_short;
   private: double z_max;

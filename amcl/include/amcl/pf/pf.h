@@ -90,20 +90,20 @@ typedef struct
 typedef struct _pf_sample_set_t
 {
   // The samples
-  int sample_count;
-  pf_sample_t *samples;
+  int sample_count; //样本数量
+  pf_sample_t *samples;//样本
 
   // A kdtree encoding the histogram
   pf_kdtree_t *kdtree;
 
   // Clusters
-  int cluster_count, cluster_max_count;
+  int cluster_count, cluster_max_count; //当前粒子簇的数量和最大粒子簇数量
   pf_cluster_t *clusters;
 
   // Filter statistics
-  pf_vector_t mean;
-  pf_matrix_t cov;
-  int converged; 
+  pf_vector_t mean; //平均位姿
+  pf_matrix_t cov;  //协方差
+  int converged;    //指示粒子集合是否收敛
   double n_effective;
 } pf_sample_set_t;
 
@@ -112,31 +112,32 @@ typedef struct _pf_sample_set_t
 typedef struct _pf_t
 {
   // This min and max number of samples
-  int min_samples, max_samples;
+  int min_samples, max_samples; // 最少和最多样本数量
 
   // Population size parameters
-  double pop_err, pop_z;
+  double pop_err, pop_z;// 样本集尺寸参数
 
   // Resample limit cache
   int *limit_cache;
   
   // The sample sets.  We keep two sets and use [current_set]
   // to identify the active set.
-  int current_set;
-  pf_sample_set_t sets[2];
+  int current_set;// 当前激活态的样本集索引
+  pf_sample_set_t sets[2];// 样本集合,双缓存
 
   // Running averages, slow and fast, of likelihood
   double w_slow, w_fast;
 
   // Decay rates for running averages
-  double alpha_slow, alpha_fast;
+  double alpha_slow, alpha_fast; //长期指数滤波器衰减率,短期指数滤波器衰减率
 
   // Function used to draw random pose samples
-  pf_init_model_fn_t random_pose_fn;
+  pf_init_model_fn_t random_pose_fn;// 绘制样本集合的函数指针
   void *random_pose_data;
 
+    // 判定粒子集合发散的阈值
   double dist_threshold; //distance threshold in each axis over which the pf is considered to not be converged
-  int converged; 
+  int converged; // 粒子集合收敛的标志
 
   // boolean parameter to enamble/diable selective resampling
   int selective_resampling;

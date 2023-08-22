@@ -47,9 +47,11 @@ typedef enum
 class AMCLOdomData : public AMCLSensorData
 {
   // Odometric pose
+  // 记录里程计的位姿
   public: pf_vector_t pose;
 
   // Change in odometric pose
+  // 记录里程计的运动量
   public: pf_vector_t delta;
 };
 
@@ -80,6 +82,7 @@ class AMCLOdom : public AMCLSensor
 
   // Update the filter based on the action model.  Returns true if the filter
   // has been updated.
+  // 根据里程计数据@data来更新粒子滤波器@pf， 如果成功更新则返回true。
   public: virtual bool UpdateAction(pf_t *pf, AMCLSensorData *data);
 
   // Current data timestamp
